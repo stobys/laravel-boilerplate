@@ -1,12 +1,12 @@
 {
     "name": "stobys/boilerplate",
-    "description": "Laravel 5.6 Based WebApp Boilerplate",
+    "description": "Laravel Based WebApp Boilerplate",
     "keywords": ["boilerplate", "laravel"],
     "license": "MIT",
     "type": "project",
     "authors": [
         {
-            "name": "Slawomir Tobys",
+            "name": "Slawomir 'SylveK' Tobys",
             "email": "s.tobys@gmail.com"
         }
     ],
