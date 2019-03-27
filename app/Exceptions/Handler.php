@@ -13,7 +13,12 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        //
+        \Illuminate\Auth\AuthenticationException::class,
+        \Illuminate\Auth\Access\AuthorizationException::class,
+        \Symfony\Component\HttpKernel\Exception\HttpException::class,
+        \Illuminate\Database\Eloquent\ModelNotFoundException::class,
+        \Illuminate\Session\TokenMismatchException::class,
+        \Illuminate\Validation\ValidationException::class,
     ];
 
     /**
@@ -46,6 +51,29 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof UnauthorizedException) {
+            return redirect()
+                -> route('home')
+                -> withFlashDanger(__('auth.general_error'));
+        }
+
         return parent::render($request, $exception);
     }
+	
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @param AuthenticationException  $exception
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    // protected function unauthenticated($request, AuthenticationException $exception)
+    // {
+    //     if ($request->expectsJson()) {
+    //         return response()->json(['error' => 'Unauthenticated.'], 401);
+    //     }
+
+    //     return $request->expectsJson()
+    //         ? response()->json(['message' => $exception->getMessage()], 401)
+    //         : redirect()->guest(route('login'));
+    // }
 }

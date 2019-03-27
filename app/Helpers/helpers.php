@@ -98,3 +98,18 @@ if (! function_exists('yesno')) {
             : (($which !== false) ? trans('app.yes') : '');
     }
 }
+
+// -- is the mime type an image
+function is_image($mimeType)
+{
+    return starts_with($mimeType, 'image/');
+}
+
+function index_page_size($value = null)
+{
+    if (is_null($value)) {
+        return session()->get('itemsPerIndexPage');
+    }
+
+    return session()->get('itemsPerIndexPage') == $value;
+}
