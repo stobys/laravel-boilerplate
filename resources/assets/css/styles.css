@@ -1,0 +1,82 @@
+.clickable {
+    cursor: pointer;
+}
+
+.bg-adient-teal {
+    background-color:#00465b;
+}
+
+.box.box-adient {
+    border-top-color: #00465b;
+    border-bottom-color: #00465b;
+}
+
+.btn-adient {
+    background-color: #00465b;
+    color:#fff;
+}
+
+.btn-adient:hover {
+    color:#c4da24;
+}
+
+[v-cloak] {
+    display: none;
+}
+
+#pdf-watermark {
+    position: fixed;
+    top: 45%;
+    width: 100%;
+    text-align: center;
+    opacity: .2;
+    transform: rotate(-45deg);
+    transform-origin: 50% 50%;
+    z-index: 1000;
+    font-size:96pt;
+}
+
+#loading-wrapper {
+  width:100%;   height:100%;
+  top: 0px;     left: 0px;
+  position: fixed;
+  display: block;
+  opacity: 0.7;
+  background-color: #fff;
+  z-index: 9998;
+  text-align: center;
+}
+
+#loading-image {
+  position: absolute;
+  top:25%;  left:50%;
+  z-index: 9999;
+}
+
+.input-group-btn select {
+  border-color: #ccc;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+
+#msg-box {
+  display:none; z-index:1500; position:fixed; /* top:50px; left:50%; margin-left:-240px; */
+  top:20px; right:20px;
+  width:480px; border:2px solid; padding:15px 10px 15px 50px;
+  background-repeat:no-repeat; background-position:10px center;
+  font-size:18px; text-align:justify;
+  text-shadow: 2px 2px 2px rgba(0,0,0,.3);
+  box-shadow: 10px 10px 10px rgba(0,0,0,.5);
+}
+
+#msg-box.info   { color:#00529b; background-color:#bde5f8; background-image:url('../img/msg-info.png'); }
+#msg-box.success  { color:#4f8a10; background-color:#dff2bf; background-image:url('../img/msg-success.png'); }
+#msg-box.warning  { color:#9f6000; background-color:#feefb3; background-image:url('../img/msg-warning.png'); }
+#msg-box.error    { color:#d8000c; background-color:#ffbaba; background-image:url('../img/msg-error.png'); }
+#msg-box.validation { color:#d63301; background-color:#ffccba; background-image:url('../img/validation.png'); }
+
+.callout .icon { margin-right: 10px; }
+
+h3.logo { font-family: 'Raleway', sans-serif; font-weight: 100; height: 100vh; margin: 0; }

@@ -1,0 +1,1 @@
+resetnij se hasela
