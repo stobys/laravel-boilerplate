@@ -26,6 +26,9 @@ class Model extends Eloquent
 
     //  protected $dateFormat = 'Y-m-d H:i';
 
+    // -- should model be validated while saving
+    protected $autoValidate = true;
+
     // -- the attributes that are not mass assignable.
     protected $guarded = ['id', 'created_at', 'updated_at', 'deleted_at'];
 

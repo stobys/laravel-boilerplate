@@ -25,10 +25,12 @@ mix.styles([
 		'node_modules/adminlte/dist/css/skins/skin-red.min.css',
 		// 'node_modules/adminlte/dist/css/skins/skin-red-light.min.css',
 		'node_modules/adminlte/dist/css/skins/skin-yellow.min.css',
-		// 'node_modules/adminlte/dist/css/skins/skin-yellow-light.min.css',
+		'node_modules/adminlte/dist/css/skins/skin-yellow-light.min.css',
 
 		'node_modules/bootstrap-toggle/css/bootstrap-toggle.min.css',
 		'node_modules/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css',
+
+		'node_modules/bootstrap-daterangepicker/daterangepicker.css',
 
 		'node_modules/select2/dist/css/select2.min.css',
 		'node_modules/adminlte/dist/css/AdminLTE.min.css',
@@ -41,12 +43,15 @@ mix.scripts([
 		'node_modules/jquery/dist/jquery.min.js',
 		'node_modules/bootstrap/dist/js/bootstrap.min.js',
 		'node_modules/jasny-bootstrap/dist/js/jasny-bootstrap.min.js',
-		'node_modules/admin-lte/dist/js/adminlte.min.js',
+		'node_modules/adminlte/dist/js/adminlte.min.js',
 
 		// -- Bootstrap Date Picker
 		'node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
 		'node_modules/bootstrap-datepicker/dist/js/locales/bootstrap-datepicker.pl.min.js',
 		'node_modules/bootstrap-datepicker/dist/js/locales/bootstrap-datepicker.en.min.js',
+
+		// -- Bootstrap Date Range Picker
+		'node_modules/bootstrap-daterangepicker/daterangepicker.js',
 
 		// -- Bootstrap Switch / Toggle
 		'node_modules/bootstrap-toggle/js/bootstrap-toggle.min.js',

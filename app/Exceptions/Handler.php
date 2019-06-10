@@ -2,7 +2,10 @@
 
 namespace App\Exceptions;
 
+use Mail;
 use Exception;
+use App\Mail\ReportExceptionToEmail;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -40,6 +43,9 @@ class Handler extends ExceptionHandler
     public function report(Exception $exception)
     {
         parent::report($exception);
+
+        // -- send error to developers team
+        $this->sendReport($exception);
     }
 
     /**
@@ -59,21 +65,37 @@ class Handler extends ExceptionHandler
 
         return parent::render($request, $exception);
     }
-	
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @param AuthenticationException  $exception
-     *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
-     */
-    // protected function unauthenticated($request, AuthenticationException $exception)
-    // {
-    //     if ($request->expectsJson()) {
-    //         return response()->json(['error' => 'Unauthenticated.'], 401);
-    //     }
 
-    //     return $request->expectsJson()
-    //         ? response()->json(['message' => $exception->getMessage()], 401)
-    //         : redirect()->guest(route('login'));
-    // }
+    /**
+     * Convert an authentication exception into an unauthenticated response.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Auth\AuthenticationException $exception
+     * @return \Illuminate\Http\Response
+     */
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        if ($request->expectsJson()) {
+            return response()->json([
+                'error'     => __('exception.unauthenticated'),
+                // 'message'   => $exception -> getMessage()
+            ], 401);
+        }
+
+        return redirect()->guest(route('login'));
+    }
+
+    /**
+     * Send exception report to emails.
+     *
+     * @param $exception
+     */
+    protected function sendReport($exception)
+    {
+        if (parent::shouldntReport($exception)) {
+            return;
+        }
+
+        //Mail::to('sylvek@sylvek.org')->send(new ReportExceptionToEmail($exception));
+    }
 }

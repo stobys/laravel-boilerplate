@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Blade;
+// use Blade;
 use Illuminate\Support\ServiceProvider;
 
 class BladeServiceProvider extends ServiceProvider
@@ -14,14 +15,12 @@ class BladeServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
         Blade::directive('fa', function ($expression) {
-            $expression = $this->parseMultipleArgs($expression);
-            return sprintf(
-            '<i class="fa fa-%s %s"></i>',
-                    $this->stripQuotes($expression->get(0)),
-                    $this->stripQuotes($expression->get(1))
-                );
+            // $expression = $this->parseMultipleArgs($expression);
+
+            // $class = $expression -> join(' ');
+
+            return '<i class="fa fa-'. $expression .'"></i>';
         });
     }
 
@@ -45,7 +44,7 @@ class BladeServiceProvider extends ServiceProvider
      */
     public static function parseMultipleArgs($expression)
     {
-        return collect(explode(',', $expression))->map(function ($item) {
+        return collect(explode(' ', $expression))->map(function ($item) {
             return trim($item);
         });
     }
@@ -67,6 +66,8 @@ class BladeServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // dd('register in blade SP');
+
         /*
         // -- Markup Extensions
         Blade::extend(function ($view) {
@@ -84,67 +85,73 @@ class BladeServiceProvider extends ServiceProvider
 
             return $value;
         });
+        */
 
-        Blade::directive('debug', function () {
-            return "<?php if( config('app.debug') ): ?>";
-        });
+        /*
+                Blade::directive('debug', function () {
+                    return "<?php if( config('app.debug') ): ?>";
+                });
 
-        Blade::directive('enddebug', function () {
-            return '<?php endif; ?>';
-        });
+                Blade::directive('enddebug', function () {
+                    return '<?php endif; ?>';
+                });
 
-        Blade::directive('haserror', function ($expression) {
-            return '<?php if (isset($errors) && $errors->has('.$expression.')): ?>';
-        });
+                Blade::directive('haserror', function ($expression) {
+                    return '<?php if (isset($errors) && $errors->has('.$expression.')): ?>';
+                });
 
-        Blade::directive('endhaserror', function () {
-            return '<?php endif; ?>';
-        });
+                Blade::directive('endhaserror', function () {
+                    return '<?php endif; ?>';
+                });
+        */
 
-        // -- Functional Extensions
-        //Blade::extend( function($value, $compiler)
-        //{
-        //    return preg_replace("/@set\('(.*?)'\,(.*)\)/", '<?php $$1 = $2; ?>', $value);
-        //});
+        /*
+         // -- Functional Extensions
+         //Blade::extend( function($value, $compiler)
+         //{
+         //    return preg_replace("/@set\('(.*?)'\,(.*)\)/", '<?php $$1 = $2; ?>', $value);
+         //});
 
-        Blade::extend(function ($value) {
-            return preg_replace('/(\s*)@break(\s*)/', '$1<?php break; ?>$2', $value);
-        });
-        // -- @style
-        Blade::directive('style', function ($expression) {
-            if (! empty($expression)) {
-                return '<link rel="stylesheet" href="'.$this->stripQuotes($expression).'">';
-            }
-            return '<style>';
-        });
+         Blade::extend(function ($value) {
+             return preg_replace('/(\s*)@break(\s*)/', '$1<?php break; ?>$2', $value);
+         });
+         // -- @style
+         Blade::directive('style', function ($expression) {
+             if (! empty($expression)) {
+                 return '<link rel="stylesheet" href="'.$this->stripQuotes($expression).'">';
+             }
+             return '<style>';
+         });
 
-        Blade::directive('endstyle', function () {
-            return '</style>';
-        });
+         Blade::directive('endstyle', function () {
+             return '</style>';
+         });
 
-        // -- @mix
-        Blade::directive('mix', function ($expression) {
-            if (ends_with($expression, ".css'")) {
-                return '<link rel="stylesheet" href="<?php echo mix('.$expression.') ?>">';
-            }
-            if (ends_with($expression, ".js'")) {
-                return '<script src="<?php echo mix('.$expression.') ?>"></script>';
-            }
-            return "<?php echo mix({$expression}); ?>";
-        });
+         // -- @mix
+         Blade::directive('mix', function ($expression) {
+             if (ends_with($expression, ".css'")) {
+                 return '<link rel="stylesheet" href="<?php echo mix('.$expression.') ?>">';
+             }
+             if (ends_with($expression, ".js'")) {
+                 return '<script src="<?php echo mix('.$expression.') ?>"></script>';
+             }
+             return "<?php echo mix({$expression}); ?>";
+         });
 
-        // -- @script
-        Blade::directive('script', function ($expression) {
-            if (! empty($expression)) {
-                return '<script src="'.DirectivesRepository::stripQuotes($expression).'"></script>';
-            }
-            return '<script>';
-        });
+         // -- @script
+         Blade::directive('script', function ($expression) {
+             if (! empty($expression)) {
+                 return '<script src="'.DirectivesRepository::stripQuotes($expression).'"></script>';
+             }
+             return '<script>';
+         });
 
-        Blade::directive('endscript', function () {
-            return '</script>';
-        });
+         Blade::directive('endscript', function () {
+             return '</script>';
+         });
+        */
 
+/*
         // -- @routeis
         Blade::directive('routeis', function ($expression) {
             return "<?php if (fnmatch({$expression}, Route::currentRouteName())) : ?>";
@@ -161,112 +168,114 @@ class BladeServiceProvider extends ServiceProvider
         Blade::directive('endrouteisnot', function ($expression) {
             return '<?php endif; ?>';
         });
+*/
 
-        // -- dump methofs
-        Blade::directive('dd', function ($expression) {
-            return "<?php dd(with{$expression}); ?>";
-        });
+        /*
+         // -- dump methofs
+         Blade::directive('dd', function ($expression) {
+             return "<?php dd(with{$expression}); ?>";
+         });
 
-        Blade::directive('dump', function ($expression) {
-            return "<?php dump({$expression}); ?>";
-        });
+         Blade::directive('dump', function ($expression) {
+             return "<?php dump({$expression}); ?>";
+         });
 
-        Blade::directive('var_dump', function ($expression) {
-            return "<?php var_dump(with{$expression}); ?>";
-        });
+         Blade::directive('var_dump', function ($expression) {
+             return "<?php var_dump(with{$expression}); ?>";
+         });
 
-        Blade::directive('print_r', function ($expression) {
-            return "<?php print_r({$expression}); ?>";
-        });
+         Blade::directive('print_r', function ($expression) {
+             return "<?php print_r({$expression}); ?>";
+         });
 
 
-        // -- @set
-        Blade::directive('set', function ($argumentString) {
-            list($name, $value) = $this->getArguments($argumentString);
+         // -- @set
+         Blade::directive('set', function ($argumentString) {
+             list($name, $value) = $this->getArguments($argumentString);
 
-            return "<?php {$name} = {$value}; ?>";
-        });
+             return "<?php {$name} = {$value}; ?>";
+         });
 
-        Blade::directive('set', function($expression) {
-            list($variable, $value) = explode(',', $expression, 2);
+         Blade::directive('set', function($expression) {
+             list($variable, $value) = explode(',', $expression, 2);
 
-            // Ensure variable has no spaces or apostrophes
-            $variable = trim(str_replace('\'', '', $variable));
+             // Ensure variable has no spaces or apostrophes
+             $variable = trim(str_replace('\'', '', $variable));
 
-            // Make sure that the variable starts with $
-            if (! starts_with($variable, '$')) {
-                $variable = '$' . $variable;
-            }
+             // Make sure that the variable starts with $
+             if (! starts_with($variable, '$')) {
+                 $variable = '$' . $variable;
+             }
 
-            $value = trim($value);
+             $value = trim($value);
 
-            return "<?php {$variable} = {$value}; ?>";
-        });
+             return "<?php {$variable} = {$value}; ?>";
+         });
 
-        Blade::directive('data', function ($expression) {
-            $output = 'collect((array) '.$expression.')
-                ->map(function($value, $key) {
-                    return "data-{$key}=\"{$value}\"";
-                })
-                ->implode(" ")';
-            return "<?php echo $output; ?>";
-        });
+         Blade::directive('data', function ($expression) {
+             $output = 'collect((array) '.$expression.')
+                 ->map(function($value, $key) {
+                     return "data-{$key}=\"{$value}\"";
+                 })
+                 ->implode(" ")';
+             return "<?php echo $output; ?>";
+         });
 
-        // -- @fa, @fas, @far, @fal, @fab, @glyph
-        Blade::directive('fa', function ($expression) {
-            $expression = $this->parseMultipleArgs($expression);
-            return sprintf(
-            '<i class="fa fa-%s %s"></i>',
-                    $this->stripQuotes($expression->get(0)),
-                    $this->stripQuotes($expression->get(1))
-                );
-        });
+         // -- @fa, @fas, @far, @fal, @fab, @glyph
+         Blade::directive('fa', function ($expression) {
+             $expression = $this->parseMultipleArgs($expression);
+             return sprintf(
+             '<i class="fa fa-%s %s"></i>',
+                     $this->stripQuotes($expression->get(0)),
+                     $this->stripQuotes($expression->get(1))
+                 );
+         });
 
-        Blade::directive('fas', function ($expression) {
-            $expression = $this->parseMultipleArgs($expression);
-            return sprintf(
-            '<i class="fas fa-%s %s"></i>',
-                    $this->stripQuotes($expression->get(0)),
-                    $this->stripQuotes($expression->get(1))
-                );
-        });
+         Blade::directive('fas', function ($expression) {
+             $expression = $this->parseMultipleArgs($expression);
+             return sprintf(
+             '<i class="fas fa-%s %s"></i>',
+                     $this->stripQuotes($expression->get(0)),
+                     $this->stripQuotes($expression->get(1))
+                 );
+         });
 
-        Blade::directive('far', function ($expression) {
-            $expression = $this->parseMultipleArgs($expression);
-            return sprintf(
-            '<i class="far fa-%s %s"></i>',
-                    $this->stripQuotes($expression->get(0)),
-                    $this->stripQuotes($expression->get(1))
-                );
-        });
+         Blade::directive('far', function ($expression) {
+             $expression = $this->parseMultipleArgs($expression);
+             return sprintf(
+             '<i class="far fa-%s %s"></i>',
+                     $this->stripQuotes($expression->get(0)),
+                     $this->stripQuotes($expression->get(1))
+                 );
+         });
 
-        Blade::directive('fal', function ($expression) {
-            $expression = $this->parseMultipleArgs($expression);
-            return sprintf(
-            '<i class="fal fa-%s %s"></i>',
-                    $this->stripQuotes($expression->get(0)),
-                    $this->stripQuotes($expression->get(1))
-                );
-        });
+         Blade::directive('fal', function ($expression) {
+             $expression = $this->parseMultipleArgs($expression);
+             return sprintf(
+             '<i class="fal fa-%s %s"></i>',
+                     $this->stripQuotes($expression->get(0)),
+                     $this->stripQuotes($expression->get(1))
+                 );
+         });
 
-        Blade::directive('fab', function ($expression) {
-            $expression = $this->parseMultipleArgs($expression);
-            return sprintf(
-            '<i class="fab fa-%s %s"></i>',
-                    $this->stripQuotes($expression->get(0)),
-                    $this->stripQuotes($expression->get(1))
-                );
-        });
+         Blade::directive('fab', function ($expression) {
+             $expression = $this->parseMultipleArgs($expression);
+             return sprintf(
+             '<i class="fab fa-%s %s"></i>',
+                     $this->stripQuotes($expression->get(0)),
+                     $this->stripQuotes($expression->get(1))
+                 );
+         });
 
-        Blade::directive('glyph', function ($expression) {
-            return 'test';
-            // $expression = $this->parseMultipleArgs($expression);
-            // return sprintf(
-            //     '<i class="glyphicons glyphicons-%s %s"></i>',
-            //         $this->stripQuotes($expression->get(0)),
-            //         $this->stripQuotes($expression->get(1))
-            //     );
-        });
-        */
+         Blade::directive('glyph', function ($expression) {
+             return 'test';
+             // $expression = $this->parseMultipleArgs($expression);
+             // return sprintf(
+             //     '<i class="glyphicons glyphicons-%s %s"></i>',
+             //         $this->stripQuotes($expression->get(0)),
+             //         $this->stripQuotes($expression->get(1))
+             //     );
+         });
+         */
     }
 }

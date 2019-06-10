@@ -1,3 +1,5 @@
+
+
 <?php
 
 return [
@@ -15,6 +17,7 @@ return [
     'url' => env('APP_URL', 'http://localhost/boilerplate'),
 
     // -- 'timezone' => 'CET',
+    'timezone' => 'Europe/Warsaw',
 
     // -- Application Locale Configuration
     'locale' => 'pl',
@@ -61,6 +64,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\TelescopeServiceProvider::class,
+        App\Providers\HelpersServiceProvider::class,
         App\Providers\BladeServiceProvider::class,
 
     ],

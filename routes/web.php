@@ -11,10 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 // -- Web Routes
 Route::get('/alter-page-size', 'Actions\AlterPageSize') -> name('alter-page-size');
 // Route::get('/alter-page-size', 'HomeController@home') -> name('home');
@@ -32,6 +28,7 @@ foreach (File::files(dirname(__FILE__) . DIRECTORY_SEPARATOR .'controllers') as 
 
 // Route::any('/{page?}', 'HomeController@notFound') -> where('page','.*') -> name('catchAll');
 
-Route::get('/', 'HomeController@welcome') -> name('root');
-Route::get('/home', 'HomeController@welcome') -> name('home');
+Route::get('/', 'HomeController@index') -> name('root');
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 Route::get('/search', 'HomeController@search') -> name('search');

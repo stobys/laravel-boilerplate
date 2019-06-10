@@ -30,6 +30,7 @@ class Controller extends BaseController
     {
         // $this -> middleware('auth', ['except' => ['showLoginForm', 'login']]);
 
+
         // Flash::success('User has been updated successfully.');
         // Flash::error('Oh snap!', 'Something went wrong. Please try again for a few seconds.');
 

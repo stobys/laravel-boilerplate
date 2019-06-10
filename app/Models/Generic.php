@@ -16,9 +16,9 @@ class Generic extends Model
     // -- the database table used by the model.
     protected $table = 'generic';
 
-    //	protected $path = '';
+    //  protected $path = '';
 
-    //	protected $dateFormat = 'Y-m-d H:i';
+    //  protected $dateFormat = 'Y-m-d H:i';
 
     // -- the attributes that are not mass assignable.
     protected $guarded = ['id'];
@@ -68,7 +68,9 @@ class Generic extends Model
             if (method_exists($model, 'onSaving')) {
                 $model->onSaving();
 
-                return $model->validate();
+                if ($model->autoValidate) {
+                    return $model->validate();
+                }
             }
         });
 

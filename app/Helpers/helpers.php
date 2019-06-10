@@ -2,6 +2,25 @@
 
 use Illuminate\Support\Collection;
 
+if (! function_exists('carbon')) {
+    /**
+     * Carbon helper
+     *
+     * @param $time
+     * @param $tz
+     *
+     * @return Carbon\Carbon
+     */
+    function carbon($time = null, $tz = null)
+    {
+        // return new \Carbon\Carbon($time, $tz);
+        $carbon = \Carbon\Carbon::parse($time);
+        $carbon -> timezone = $tz ?: config('app.timezone');
+
+        return $carbon;
+    }
+}
+
 if (! Collection::hasMacro('range')) {
     /*
      * Create a new collection instance with a range of numbers. `range`

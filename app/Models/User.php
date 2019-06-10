@@ -14,6 +14,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+use App\Notifications\ResetPasswordNotification;
 
 use Spatie\Permission\Traits\HasRoles;
 use Laracasts\Presenter\PresentableTrait;
@@ -22,7 +23,6 @@ use App\Events\UserPasswordChanged;
 use Carbon\Carbon;
 use Request;
 use Session;
-use Hash;
 
 //class User extends Authenticatable
 class User extends Authenticatable
@@ -52,7 +52,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'id', 'username', 'password', 'logins', 'last_login_at', 'first_name', 'last_name',
-        'email', 'created_at', 'updated_at', 'deleted_at'
+        'email', 'must_change_password_at_logon', 'is_acct_registered', 'is_acct_confirmed',
+        'created_at', 'updated_at', 'deleted_at'
     ];
 
     // protected $quarded = [
@@ -105,18 +106,15 @@ class User extends Authenticatable
     }
 
     /**
-     * Hash password by default, if empty do nothing.
+     * Send the password reset notification.
+     * @note: This override Authenticatable methodology
      *
-     * @param  string  $value
+     * @param  string  $token
      * @return void
      */
-    public function setPasswordAttribute($value)
+    public function sendPasswordResetNotification($token)
     {
-        if (! empty($value)) {
-            $this->attributes['password'] = Hash::make($value);
-
-            $this -> fireModelEvent('hashing');
-        }
+        $this->notify(new ResetPasswordNotification($token));
     }
 
     public function scopeWithoutRoot($query)

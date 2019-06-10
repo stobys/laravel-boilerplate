@@ -14,14 +14,16 @@
         <!-- small box -->
         <div class="small-box bg-aqua">
             <div class="inner">
-                <h3>5</h3>
-                <p>Models In Database</p>
+                <h3>{{ $counters['users'] }}</h3>
+                <p>Users</p>
             </div>
             <div class="icon">
-                <i class="fa fa-user"></i>
+                @fa('user')
+
+                @datetime(now())
             </div>
-            <a href="{{ route('home') }}" class="small-box-footer">
-                Open Authors List <i class="fa fa-arrow-circle-right"></i>
+            <a href="{{ route('users-index') }}" class="small-box-footer">
+                Users List <i class="fa fa-arrow-circle-right"></i>
             </a>
         </div>
     </div>
@@ -30,16 +32,33 @@
         <!-- small box -->
         <div class="small-box bg-aqua">
             <div class="inner">
-                <h3>14</h3>
-                <p>Books In Database</p>
+                <h3>{{ $counters['roles'] }}</h3>
+                <p>Roles</p>
             </div>
             <div class="icon">
-                <i class="fa fa-book"></i>
+                <i class="fa fa-user"></i>
             </div>
-            <a href="{{ route('home') }}" class="small-box-footer">
-                Open Books List <i class="fa fa-arrow-circle-right"></i>
+            <a href="{{ route('users-roles-index') }}" class="small-box-footer">
+                Roles List <i class="fa fa-arrow-circle-right"></i>
             </a>
         </div>
     </div>
+
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-aqua">
+            <div class="inner">
+                <h3>{{ $counters['permissions'] }}</h3>
+                <p>Permissions</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-user"></i>
+            </div>
+            <a href="{{ route('users-permissions-index') }}" class="small-box-footer">
+                Permissions List <i class="fa fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    </div>
+
 
 @endsection
